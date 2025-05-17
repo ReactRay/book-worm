@@ -1,12 +1,13 @@
 import express from 'express'
 import cloudinary from '../lib/cloudinary'
 import Book from '../models/Book'
+import protectRoute from '../middlewares/auth.middleware.js'
 
 const router = express.Router()
 
 //create ,delete,fetchone , fetch all
 
-router.post('/', async (req, res) => {
+router.post('/', protectRoute, async (req, res) => {
   try {
     const { title, caption, image, rating } = req.body
 
