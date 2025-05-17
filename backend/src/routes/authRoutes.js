@@ -43,6 +43,7 @@ router.post('/login', async (req, res) => {
     })
   } catch (error) {
     console.log(error, 'error in login route')
+    res.status(500).json({ message: 'Something went wrong' })
   }
 })
 
@@ -95,6 +96,7 @@ router.post('/register', async (req, res) => {
     })
   } catch (error) {
     console.log(error, 'error in signup')
+    res.status(500).json({ message: 'Something went wrong' })
   }
 })
 
