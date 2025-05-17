@@ -2,10 +2,10 @@ import express from 'express'
 
 const router = express.Router()
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   res.send('login')
 })
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   res.send('register')
 })
 
