@@ -50,6 +50,7 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
   try {
     const { email, username, password } = req.body
+    console.log(email, username, password)
     if (!email || !username || !password) {
       return res.status(400).json({ message: 'All fields are required' })
     }

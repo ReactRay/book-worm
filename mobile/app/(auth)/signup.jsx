@@ -1,5 +1,5 @@
 
-import { View, Text, KeyboardAvoidingView, Platform, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, KeyboardAvoidingView, Platform, TextInput, TouchableOpacity, Alert } from 'react-native'
 import styles from '../../assets/styles/signup.styles';
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/colors';
@@ -14,13 +14,17 @@ export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { user } = useAuthStore()
+    const { user, register } = useAuthStore()
 
-    console.log('user is hero ', user)
 
     const router = useRouter()
 
-    function handleSignup() {
+    async function handleSignup() {
+        const result = await register(username, email, password)
+
+        if (!result.success) {
+            Alert.alert('Error', result.error)
+        }
     }
 
     return (
