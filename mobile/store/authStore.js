@@ -22,8 +22,6 @@ export const useAuthStore = create((set) => ({
         throw new Error(data.message || 'Something went wrong')
       }
 
-      console.log('Registration successful:', data)
-
       await AsyncStorage.setItem('user', JSON.stringify(data.user))
       await AsyncStorage.setItem('token', data.token)
 
@@ -38,11 +36,21 @@ export const useAuthStore = create((set) => ({
     }
   },
 
+  checkAuth: async () => {
+    try {
+      const token = await AsyncStorage.getItem('token')
+      const userJson = await AsyncStorage.getItem('user')
+      const user = userJson ? JSON.parse(userJson) : null
+
+      set({ user, token })
+    } catch (error) {
+      console.log('auth check fail')
+    }
+  },
+
   login: async (email, password) => {
     // Implement login logic here
   },
 
-  logout: async () => {
-    // Implement logout logic here
-  },
+  logout: async () => {},
 }))

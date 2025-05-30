@@ -19,6 +19,7 @@ export default function Signup() {
 
     const router = useRouter()
 
+
     async function handleSignup() {
         const result = await register(username, email, password)
 
