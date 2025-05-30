@@ -1,13 +1,13 @@
 // styles/signup.styles.js
-import { StyleSheet } from "react-native";
-import COLORS from "../../constants/colors";
+import { StyleSheet } from 'react-native'
+import COLORS from '../../constants/colors'
 
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: COLORS.background,
     padding: 20,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   card: {
     backgroundColor: COLORS.cardBackground,
@@ -22,20 +22,20 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   header: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: 32,
   },
   title: {
     fontSize: 32,
-    fontWeight: "700",
-    fontFamily: "JetBrainsMono-Medium",
+    fontWeight: '700',
+    fontFamily: 'JetBrainsMono-Medium',
     color: COLORS.primary,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
     color: COLORS.textSecondary,
-    textAlign: "center",
+    textAlign: 'center',
   },
   formContainer: { marginBottom: 16 },
   inputGroup: { marginBottom: 20 },
@@ -43,11 +43,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 8,
     color: COLORS.textPrimary,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: COLORS.inputBackground,
     borderRadius: 12,
     borderWidth: 1,
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderRadius: 12,
     height: 50,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 16,
     shadowColor: COLORS.black,
     shadowOffset: { width: 0, height: 2 },
@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: COLORS.white,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   footer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 24,
   },
   footerText: {
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
   },
   link: {
     color: COLORS.primary,
-    fontWeight: "600",
+    fontWeight: '600',
   },
-});
+})
 
-export default styles;
+export default styles
