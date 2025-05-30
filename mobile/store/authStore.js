@@ -49,8 +49,38 @@ export const useAuthStore = create((set) => ({
   },
 
   login: async (email, password) => {
-    // Implement login logic here
+    set({ isLoading: true })
+    try {
+      const response = await fetch('http://10.0.2.2:3000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong')
+      }
+      console.log(data, 'data')
+      await AsyncStorage.setItem('user', JSON.stringify(data.user))
+      await AsyncStorage.setItem('token', data.token)
+
+      set({ token: data.token, user: data.user })
+
+      return { success: true }
+    } catch (error) {
+      console.error('Login failed:', error)
+      return { success: false, error: error.message }
+    } finally {
+      set({ isLoading: false })
+    }
   },
 
-  logout: async () => {},
+  logout: async () => {
+    await AsyncStorage.removeItem('token')
+    await AsyncStorage.removeItem('user')
+    set({ user: null, token: null })
+  },
 }))
