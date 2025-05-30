@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/colors';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
+import { useAuthStore } from '../../store/authStore';
 
 export default function Signup() {
     const [username, setUsername] = useState("");
@@ -13,11 +14,13 @@ export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const { user } = useAuthStore()
+
+    console.log('user is hero ', user)
 
     const router = useRouter()
 
     function handleSignup() {
-
     }
 
     return (
