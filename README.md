@@ -1,5 +1,5 @@
 📚 Book Worm
-<img src="https://res.cloudinary.com/danlxus36/image/upload/v1749055537/Screenshot_3_atvjrb.png" alt="Book Worm Screenshot 1" width="100%" /> <img src="https://res.cloudinary.com/danlxus36/image/upload/v1749055537/Screenshot_4_v8co12.png" alt="Book Worm Screenshot 2" width="100%" />
+ <img src="https://res.cloudinary.com/danlxus36/image/upload/v1749055537/Screenshot_4_v8co12.png" alt="Book Worm Screenshot 2" width="100%" />
 A mobile app built with React Native (Expo) and a backend using Express + MongoDB, where users can post and share book recommendations in a common feed. Perfect for readers who want to inspire each other!
 
 🌱 Features
