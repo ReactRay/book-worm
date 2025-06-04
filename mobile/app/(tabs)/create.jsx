@@ -38,6 +38,7 @@ export default function Create() {
 
     const { token } = useAuthStore()
 
+    console.log(token, 'token')
     const pickImage = async () => {
         try {
             // request permission if needed
@@ -84,38 +85,62 @@ export default function Create() {
 
     const handleSubmit = async () => {
         if (!title || !caption || !imageBase64 || !rating) {
-            Alert.alert('Error', 'Please fill in all fields')
-            return
+            Alert.alert('Error', 'Please fill in all fields');
+            return;
         }
 
+        console.log('📝 Title:', title);
+        console.log('🖋️ Caption:', caption);
+        console.log('⭐ Rating:', rating);
+        console.log('🖼️ Image URI:', image);
+        console.log('📦 Base64 length:', imageBase64?.length);
+
         try {
-            setLoading(true)
+            setLoading(true);
 
             const uriParts = image.split('.');
             const fileType = uriParts[uriParts.length - 1];
             const imageType = fileType ? `image/${fileType}` : 'image/jpeg';
 
             const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
-            const response = await fetch(`${API_URL}/books`, {
+            console.log('🧬 Full image data URL (truncated):', imageDataUrl.substring(0, 100) + '...');
+
+            const payload = {
+                title,
+                caption,
+                rating: rating.toString(),
+                image: imageDataUrl,
+            };
+
+            console.log('📤 Sending payload:', JSON.stringify(payload).substring(0, 200) + '...');
+
+            const response = await fetch(`${API_URL}books/`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    title,
-                    caption,
-                    rating: rating.toString(),
-                    image: imageDataUrl,
-                }),
+                body: JSON.stringify(payload),
             });
 
-            const data = await response.json();
+            const text = await response.text();
+            console.log('📥 Raw response text:', text);
+
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                throw new Error("❌ Response is not valid JSON. Check server logs.");
+            }
 
             if (!response.ok) {
+                console.log('❌ Backend returned error response:', data);
                 throw new Error(data.message || "Something went wrong");
             }
+
+            console.log('✅ Success response:', data);
             Alert.alert("Success", "Your book recommendation has been posted!");
+
             setTitle("");
             setCaption("");
             setRating(3);
@@ -123,7 +148,7 @@ export default function Create() {
             setImageBase64(null);
             router.push("/");
         } catch (error) {
-            console.error("Error creating post:", error);
+            console.error("❗ Error creating post:", error);
             Alert.alert("Error", error.message || "Something went wrong");
         } finally {
             setLoading(false);
