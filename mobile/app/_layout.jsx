@@ -25,7 +25,6 @@ export default function RootLayout() {
     if (!isReady) return
     const inAuthScreen = segments[0] === '(auth)'
     const isSignedIn = user && token
-    console.log(user, token)
 
     if (!isSignedIn && !inAuthScreen) {
       router.replace('/(auth)')
