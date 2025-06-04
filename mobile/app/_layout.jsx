@@ -14,7 +14,6 @@ export default function RootLayout() {
 
   const { checkAuth, user, token } = useAuthStore()
 
-  console.log(user)
 
   useEffect(() => {
     checkAuth().finally(() => setIsReady(true))

@@ -38,7 +38,6 @@ export default function Create() {
 
     const { token } = useAuthStore()
 
-    console.log(token, 'token')
     const pickImage = async () => {
         try {
             // request permission if needed
@@ -89,11 +88,6 @@ export default function Create() {
             return;
         }
 
-        console.log('📝 Title:', title);
-        console.log('🖋️ Caption:', caption);
-        console.log('⭐ Rating:', rating);
-        console.log('🖼️ Image URI:', image);
-        console.log('📦 Base64 length:', imageBase64?.length);
 
         try {
             setLoading(true);
@@ -103,7 +97,6 @@ export default function Create() {
             const imageType = fileType ? `image/${fileType}` : 'image/jpeg';
 
             const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
-            console.log('🧬 Full image data URL (truncated):', imageDataUrl.substring(0, 100) + '...');
 
             const payload = {
                 title,
@@ -112,7 +105,6 @@ export default function Create() {
                 image: imageDataUrl,
             };
 
-            console.log('📤 Sending payload:', JSON.stringify(payload).substring(0, 200) + '...');
 
             const response = await fetch(`${API_URL}books/`, {
                 method: "POST",
@@ -124,7 +116,6 @@ export default function Create() {
             });
 
             const text = await response.text();
-            console.log('📥 Raw response text:', text);
 
             let data;
             try {
@@ -138,7 +129,6 @@ export default function Create() {
                 throw new Error(data.message || "Something went wrong");
             }
 
-            console.log('✅ Success response:', data);
             Alert.alert("Success", "Your book recommendation has been posted!");
 
             setTitle("");

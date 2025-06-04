@@ -52,8 +52,6 @@ export const useAuthStore = create((set) => ({
   login: async (email, password) => {
     set({ isLoading: true })
     try {
-      console.log(API_URL)
-
       const response = await fetch(`${API_URL}auth/login`, {
         method: 'POST',
         headers: {

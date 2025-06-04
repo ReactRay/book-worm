@@ -30,6 +30,8 @@ export default function Home() {
 
     const fetchBooks = async (pageNum = 1, refresh = false) => {
         try {
+            console.log('token', token?.length);
+
             if (refresh) setRefreshing(true);
             else if (pageNum === 1) setLoading(true);
 
@@ -38,21 +40,22 @@ export default function Home() {
             });
 
             const data = await response.json();
+
             if (!response.ok) throw new Error(data.message || "Failed to fetch books");
 
-            // todo fix it later
-            // setBooks((prevBooks) => [...prevBooks, ...data.books]);
+            // Defensive checks
+            const booksFromServer = Array.isArray(data.books) ? data.books : [];
+            const totalPages = Number.isFinite(data.totalPages) ? data.totalPages : 1;
 
             const uniqueBooks =
                 refresh || pageNum === 1
-                    ? data.books
-                    : Array.from(new Set([...books, ...data.books].map((book) => book._id))).map((id) =>
-                        [...books, ...data.books].find((book) => book._id === id)
+                    ? booksFromServer
+                    : Array.from(new Set([...books, ...booksFromServer].map((book) => book._id))).map((id) =>
+                        [...books, ...booksFromServer].find((book) => book._id === id)
                     );
 
             setBooks(uniqueBooks);
-
-            setHasMore(pageNum < data.totalPages);
+            setHasMore(pageNum < totalPages);
             setPage(pageNum);
         } catch (error) {
             console.log("Error fetching books", error);
@@ -63,6 +66,7 @@ export default function Home() {
             } else setLoading(false);
         }
     };
+
 
     useEffect(() => {
         fetchBooks();
